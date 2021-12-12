@@ -1,11 +1,12 @@
 from Netflix.views import Home, ProfileList, ProfileCreate,Watch,ShowMovieDetail,ShowMovie
 from django.urls import path
-from .api import RegisterAPI, LoginAPI, LogoutAPI
+from .api import UserAPI, RegisterAPI, LoginAPI, LogoutAPI
 
 app_name='Netflix'
 
 urlpatterns = [
     path('', Home.as_view()),
+    path('api/', UserAPI.as_view()),
     path('api/register/', RegisterAPI.as_view()),
     path('api/login/', LoginAPI.as_view()),
     path('api/logout/', LogoutAPI.as_view()),
