@@ -6,6 +6,10 @@ from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, Lo
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+class UserAPI(generics.GenericAPIView):
+    queryset = CustomUser.object.all()
+    serializer_class = UserSerializer
+
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
