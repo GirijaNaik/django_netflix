@@ -4,16 +4,6 @@ allauth(pip install django-allauth)
 auth_token(pip install django-rest-authtoken)
 pillow (pip install pillow)
 pytz(pip install pytz)
-sites(include 'django.contrib.sites' into installed app in settings.py file)
-default_authentication_classes
-(REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-})
-include this code in settings.py file
-
 asgiref==3.4.1
 boto3==1.20.23
 botocore==1.23.23
