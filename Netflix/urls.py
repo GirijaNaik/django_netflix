@@ -1,6 +1,6 @@
 from Netflix.views import Home, ProfileList, ProfileCreate,Watch,ShowMovieDetail,ShowMovie
 from django.urls import path
-from .api import UserAPI, RegisterAPI, LoginAPI, LogoutAPI
+from .api import UserAPI, RegisterAPI, LoginAPI, LogoutAPI,  MovieCreateAPI, MovieViewAPI
 
 app_name='Netflix'
 
@@ -10,6 +10,8 @@ urlpatterns = [
     path('api/register/', RegisterAPI.as_view()),
     path('api/login/', LoginAPI.as_view()),
     path('api/logout/', LogoutAPI.as_view()),
+    path('api/movie_view/', MovieViewAPI.as_view()),
+    path('api/create/', MovieCreateAPI.as_view()),
     path('profile/', ProfileList.as_view(), name='profile_list'),
     path('profile/create/', ProfileCreate.as_view(), name='profile_create'),
     path('watch/<str:profile_id>/', Watch.as_view(), name='watch'),
