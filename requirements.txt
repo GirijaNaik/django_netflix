@@ -17,6 +17,7 @@ decorator==5.1.0
 defusedxml==0.7.1
 Django==4.0
 django-allauth==0.47.0
+django-cors-headers==3.10.1
 django-rest-authtoken==2.1.4
 django-rest-knox==4.1.0
 djangorestframework==3.12.4
