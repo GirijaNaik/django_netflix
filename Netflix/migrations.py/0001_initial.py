@@ -17,31 +17,49 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='movie',
+            name='Movie',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100)),
+                ('title', models.CharField(max_length=225)),
                 ('description', models.TextField()),
-                ('created', models.CharField(max_length=300)),
-                ('uuid', models.UUIDField(default=uuid.uuid4)),
-                ('type', models.CharField(choices=[('seasonal', 'Seasonal'), ('single', 'Single')], max_length=100)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('type', models.CharField(choices=[('single', 'Single'), ('seasonal', 'Seasonal')], max_length=10)),
                 ('flyer', models.ImageField(upload_to='flyers')),
-                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=100)),
+                ('imdb_score', models.FloatField()),
+                ('popularity', models.FloatField()),
+                ('genre', models.CharField(db_index=True, max_length=200)),
+                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
             ],
         ),
         migrations.CreateModel(
             name='Profile',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=300)),
-                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=10)),
+                ('name', models.CharField(blank=True, max_length=225)),
+                ('age_limit', models.CharField(blank=True, choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
                 ('uuid', models.UUIDField(default=uuid.uuid4)),
             ],
         ),
         migrations.CreateModel(
-            name='video',
+            name='Upcoming_movie',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=225)),
+                ('description', models.TextField()),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('type', models.CharField(choices=[('single', 'Single'), ('seasonal', 'Seasonal')], max_length=10)),
+                ('flyer', models.ImageField(upload_to='flyers')),
+                ('imdb_score', models.FloatField()),
+                ('popularity', models.FloatField()),
+                ('genre', models.CharField(db_index=True, max_length=200)),
+                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Video',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=225)),
                 ('file', models.FileField(upload_to='movies')),
             ],
         ),
@@ -59,7 +77,7 @@ class Migration(migrations.Migration):
                 ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('profile', models.TextField(max_length=200)),
+                ('profile', models.TextField(max_length=300)),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
             ],
@@ -70,6 +88,118 @@ class Migration(migrations.Migration):
             },
             managers=[
                 ('objects', django.contrib.auth.models.UserManager()),
+            ],
+        ),
+    ]
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('Netflix', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Top_rated',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=225)),
+                ('description', models.TextField()),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('type', models.CharField(choices=[('single', 'Single'), ('seasonal', 'Seasonal')], max_length=10)),
+                ('flyer', models.ImageField(upload_to='flyers')),
+                ('imdb_score', models.FloatField()),
+                ('popularity', models.FloatField()),
+                ('genre', models.CharField(db_index=True, max_length=200)),
+                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
+            ],
+        ),
+    ]
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('Netflix', '0002_top_rated'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='action_movies',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=225)),
+                ('description', models.TextField()),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('type', models.CharField(choices=[('single', 'Single'), ('seasonal', 'Seasonal')], max_length=10)),
+                ('flyer', models.ImageField(upload_to='flyers')),
+                ('imdb_score', models.FloatField()),
+                ('popularity', models.FloatField()),
+                ('genre', models.CharField(db_index=True, max_length=200)),
+                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='comedy_movies',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=225)),
+                ('description', models.TextField()),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('type', models.CharField(choices=[('single', 'Single'), ('seasonal', 'Seasonal')], max_length=10)),
+                ('flyer', models.ImageField(upload_to='flyers')),
+                ('imdb_score', models.FloatField()),
+                ('popularity', models.FloatField()),
+                ('genre', models.CharField(db_index=True, max_length=200)),
+                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='horror_movies',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=225)),
+                ('description', models.TextField()),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('type', models.CharField(choices=[('single', 'Single'), ('seasonal', 'Seasonal')], max_length=10)),
+                ('flyer', models.ImageField(upload_to='flyers')),
+                ('imdb_score', models.FloatField()),
+                ('popularity', models.FloatField()),
+                ('genre', models.CharField(db_index=True, max_length=200)),
+                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='kids_movies',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=225)),
+                ('description', models.TextField()),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('type', models.CharField(choices=[('single', 'Single'), ('seasonal', 'Seasonal')], max_length=10)),
+                ('flyer', models.ImageField(upload_to='flyers')),
+                ('imdb_score', models.FloatField()),
+                ('popularity', models.FloatField()),
+                ('genre', models.CharField(db_index=True, max_length=200)),
+                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='romantic_movies',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=225)),
+                ('description', models.TextField()),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('type', models.CharField(choices=[('single', 'Single'), ('seasonal', 'Seasonal')], max_length=10)),
+                ('flyer', models.ImageField(upload_to='flyers')),
+                ('imdb_score', models.FloatField()),
+                ('popularity', models.FloatField()),
+                ('genre', models.CharField(db_index=True, max_length=200)),
+                ('age_limit', models.CharField(choices=[('All', 'All'), ('Kids', 'Kids')], max_length=5)),
             ],
         ),
     ]
