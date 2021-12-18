@@ -34,6 +34,85 @@ class Movie(models.Model):
     videos = models.ManyToManyField('Video')
     flyer = models.ImageField(upload_to='flyers', blank=True, null=True)
     age_limit = models.CharField(max_length=5, choices=AGE_CHOICES, blank=True, null=True)
+    
+class Upcoming_movie(models.Model):
+    title: str = models.CharField(max_length=225)
+    description: str = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=MOVIE_TYPE)
+    flyer = models.ImageField(upload_to='flyers')
+    imdb_score = models.FloatField()
+    popularity = models.FloatField()
+    genre = models.CharField(max_length=200, db_index=True)
+    age_limit = models.CharField(max_length=5, choices=AGE_CHOICES)
+
+class Top_rated(models.Model):
+    title: str = models.CharField(max_length=225)
+    description: str = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=MOVIE_TYPE)
+    flyer = models.ImageField(upload_to='flyers')
+    imdb_score = models.FloatField()
+    popularity = models.FloatField()
+    genre = models.CharField(max_length=200, db_index=True)
+    age_limit = models.CharField(max_length=5, choices=AGE_CHOICES)
+
+class comedy_movies(models.Model):
+    title: str = models.CharField(max_length=225)
+    description: str = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=MOVIE_TYPE)
+    flyer = models.ImageField(upload_to='flyers')
+    imdb_score = models.FloatField()
+    popularity = models.FloatField()
+    genre = models.CharField(max_length=200, db_index=True)
+    age_limit = models.CharField(max_length=5, choices=AGE_CHOICES)
+
+class romantic_movies(models.Model):
+    title: str = models.CharField(max_length=225)
+    description: str = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=MOVIE_TYPE)
+    flyer = models.ImageField(upload_to='flyers')
+    imdb_score = models.FloatField()
+    popularity = models.FloatField()
+    genre = models.CharField(max_length=200, db_index=True)
+    age_limit = models.CharField(max_length=5, choices=AGE_CHOICES)
+
+
+class action_movies(models.Model):
+    title: str = models.CharField(max_length=225)
+    description: str = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=MOVIE_TYPE)
+    flyer = models.ImageField(upload_to='flyers')
+    imdb_score = models.FloatField()
+    popularity = models.FloatField()
+    genre = models.CharField(max_length=200, db_index=True)
+    age_limit = models.CharField(max_length=5, choices=AGE_CHOICES)
+
+class horror_movies(models.Model):
+    title: str = models.CharField(max_length=225)
+    description: str = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=MOVIE_TYPE)
+    flyer = models.ImageField(upload_to='flyers')
+    imdb_score = models.FloatField()
+    popularity = models.FloatField()
+    genre = models.CharField(max_length=200, db_index=True)
+    age_limit = models.CharField(max_length=5, choices=AGE_CHOICES)
+
+class kids_movies(models.Model):
+    title: str = models.CharField(max_length=225)
+    description: str = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=MOVIE_TYPE)
+    flyer = models.ImageField(upload_to='flyers')
+    imdb_score = models.FloatField()
+    popularity = models.FloatField()
+    genre = models.CharField(max_length=200, db_index=True)
+    age_limit = models.CharField(max_length=5, choices=AGE_CHOICES)
+
 
 class Video(models.Model):
     title: str = models.CharField(max_length=225, blank=True, null=True)
