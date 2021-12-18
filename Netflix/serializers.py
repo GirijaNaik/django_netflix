@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, Movie
+from .models import CustomUser, Movie, Upcoming_movie, Top_rated, comedy_movies, romantic_movies, action_movies, horror_movies, kids_movies
 from django.contrib.auth import get_user_model
 
 # User Serializer
@@ -9,7 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('id', 'username', 'email', 'password')
 
-# Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -18,31 +17,75 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
-
         return user
+
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=300, required=True)
     password = serializers.CharField(required=True, write_only=True)
 
     def create(self, validated_data):
-        return User.objects.create_user(validated_data['email'], validated_data['password'])
+        user = User.objects.create_user(validated_data['email'], validated_data['password'])
+        return user
 
 class LogoutSerializer(serializers.Serializer):
     pass
 
-class MovieSerializer(serializers.Serializer):
-    title = serializers.CharField(max_length=200)
-    type = serializers.CharField(max_length=10)
-    created = serializers.DateTimeField()
-    uuid = serializers.UUIDField(default=uuid.uuid4)
-    flyer = serializers.ImageField()
-    def create(self, validated_data):
-        movie = Movie.objects.create_movie(validated_data['title'], validated_data['type'], validated_data['created'], validated_data['uuid'], validated_data['flyer'])
-        return movie
+class MovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = '__all__'
 
 class MovieViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('title', 'type', 'created', 'uuid', 'flyer')
+        fields = '__all__'
+
+class Upcoming_movieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Upcoming_movie
+        fields = '__all__'
+
+class Upcoming_movieViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Upcoming_movie
+        fields = '__all__'
+
+class Top_rated_movieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Top_rated
+        fields = '__all__'
+
+class Top_rated_movieViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Top_rated
+        fields = '__all__'
+
+class comedy_moviesViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = comedy_movies
+        fields = '__all__'
+
+class romantic_moviesViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = romantic_movies
+        fields = '__all__'
+
+
+class action_moviesViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = action_movies
+        fields = '__all__'
+
+class horror_moviesViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = horror_movies
+        fields = '__all__'
+
+class kids_moviesViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = kids_movies
+        fields = '__all__'
+
+
 
